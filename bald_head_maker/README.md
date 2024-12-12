@@ -1,0 +1,2 @@
+- `facelib` came from https://github.com/mav-rik/facerestore_cf
+- `stable_hair` came from https://github.com/Xiaojiu-z/Stable-Hair
