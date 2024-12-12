@@ -1,1 +1,6 @@
 ruff
+
+opencv-python
+numpy
+torch
+torchvision
