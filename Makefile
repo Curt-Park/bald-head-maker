@@ -11,7 +11,7 @@ train-bald-converter:
 		--pretrained_model_name_or_path=$(MODEL_DIR) \
 		--output_dir=$(OUTPUT_DIR) \
 		--dataset_name=$(DATASET_PATH) \
-		--mixed_precision="fp16" \
+		--mixed_precision="fp32" \
 		--resolution=1024 \
 		--learning_rate=5e-5 \
 		--validation_image "$(DATASET_PATH)/hair/00003.png" "$(DATASET_PATH)/hair/00083.png" \
