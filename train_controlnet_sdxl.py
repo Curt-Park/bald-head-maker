@@ -155,20 +155,15 @@ def log_validation(
 
         images = []
 
-        print("Validation:", validation_image, validation_prompt)
-        with torch.autocast("cuda"):
-            image = pipeline(
-                prompt=validation_prompt,
-                negative_prompt="",
-                width=args.resolution,
-                height=args.resolution,
-                image=validation_image,
-                num_inference_steps=30,
-                guidance_scale=1.000001,
-                controlnet_conditioning_scale=1.,
-                generator=generator,
-            ).images[0]
-        images.append(image)
+        for _ in range(args.num_validation_images):
+            with autocast_ctx:
+                image = pipeline(
+                    prompt=validation_prompt,
+                    image=validation_image,
+                    num_inference_steps=20,
+                    generator=generator,
+                ).images[0]
+            images.append(image)
 
         image_logs.append(
             {
@@ -1169,6 +1164,7 @@ def main(args):
     unet.to(accelerator.device, dtype=weight_dtype)
     text_encoder_one.to(accelerator.device, dtype=weight_dtype)
     text_encoder_two.to(accelerator.device, dtype=weight_dtype)
+    controlnet.to(accelerator.device, dtype=weight_dtype)
 
     # Here, we compute not just the text embeddings but also the additional embeddings
     # needed for the SD XL UNet to operate.
@@ -1428,9 +1424,6 @@ def main(args):
                 loss = F.mse_loss(model_pred.float(), target.float(), reduction="mean")
 
                 accelerator.backward(loss)
-                if accelerator.sync_gradients:
-                    params_to_clip = controlnet.parameters()
-                    accelerator.clip_grad_norm_(params_to_clip, args.max_grad_norm)
                 optimizer.step()
                 lr_scheduler.step()
                 optimizer.zero_grad(set_to_none=args.set_grads_to_none)
