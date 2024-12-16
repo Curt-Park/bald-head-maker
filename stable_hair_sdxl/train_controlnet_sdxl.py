@@ -42,8 +42,8 @@ from tqdm.auto import tqdm
 from transformers import AutoTokenizer, PretrainedConfig
 
 import diffusers
-from stable_hair_sdxl.controlnet import StableHairControlNetModel
-from stable_hair_sdxl.pipeline_controlnet import StableHairSDXLControlNetPipeline
+from .controlnet import StableHairControlNetModel
+from .pipeline_controlnet import StableHairSDXLControlNetPipeline
 from diffusers import (
     AutoencoderKL,
     DDPMScheduler,
