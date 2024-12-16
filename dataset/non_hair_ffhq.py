@@ -1,5 +1,4 @@
 import pandas as pd
-from huggingface_hub import hf_hub_url
 import datasets
 import os
 
@@ -71,14 +70,17 @@ class Fill50k(datasets.GeneratorBasedBuilder):
             )
             conditioning_image = open(conditioning_image_path, "rb").read()
 
-            yield row["image"], {
-                "text": text,
-                "image": {
-                    "path": image_path,
-                    "bytes": image,
+            yield (
+                row["image"],
+                {
+                    "text": text,
+                    "image": {
+                        "path": image_path,
+                        "bytes": image,
+                    },
+                    "conditioning_image": {
+                        "path": conditioning_image_path,
+                        "bytes": conditioning_image,
+                    },
                 },
-                "conditioning_image": {
-                    "path": conditioning_image_path,
-                    "bytes": conditioning_image,
-                },
-            }
+            )
