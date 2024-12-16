@@ -1,6 +1,11 @@
 ruff
 
-opencv-python
-numpy
-torch
+diffusers[torch] == 0.31.0
+accelerate>=0.16.0
 torchvision
+transformers>=4.25.1
+ftfy
+tensorboard
+Jinja2
+datasets
+wandb
