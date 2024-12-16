@@ -1393,12 +1393,14 @@ def main(args):
                 controlnet_image = batch["conditioning_pixel_values"].to(
                     dtype=weight_dtype
                 )
+                content_latents = vae.encode(batch["source_pixel_values"].to(dtype=weight_dtype)).latent_dist.sample()
+                content_latents = content_latents * vae.config.scaling_factor
                 down_block_res_samples, mid_block_res_sample = controlnet(
                     noisy_latents,
                     timesteps,
                     encoder_hidden_states=batch["prompt_ids"],
                     added_cond_kwargs=batch["unet_added_conditions"],
-                    controlnet_cond=controlnet_image,
+                    controlnet_cond=content_latents,
                     return_dict=False,
                 )
 
