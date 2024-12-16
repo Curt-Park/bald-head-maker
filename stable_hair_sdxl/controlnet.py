@@ -8,7 +8,6 @@ class StableHairControlNetModel(ControlNetModel):
         self,
         in_channels: int = 4,
         conditioning_channels: int = 4,
-        block_out_channels: tuple[int, ...] = (320, 640, 1280, 1280),
         **kwargs,
     ) -> None:
         super().__init__(
