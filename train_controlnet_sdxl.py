@@ -1358,10 +1358,7 @@ def main(args):
         for step, batch in enumerate(train_dataloader):
             with accelerator.accumulate(controlnet):
                 # Convert images to latent space
-                if args.pretrained_vae_model_name_or_path is not None:
-                    pixel_values = batch["pixel_values"].to(dtype=weight_dtype)
-                else:
-                    pixel_values = batch["pixel_values"]
+                pixel_values = batch["pixel_values"].to(dtype=weight_dtype)
                 latents = vae.encode(pixel_values).latent_dist.sample()
                 latents = latents * vae.config.scaling_factor
                 if args.pretrained_vae_model_name_or_path is None:
