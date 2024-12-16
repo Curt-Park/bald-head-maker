@@ -1168,6 +1168,7 @@ def main(args):
     unet.to(accelerator.device, dtype=weight_dtype)
     text_encoder_one.to(accelerator.device, dtype=weight_dtype)
     text_encoder_two.to(accelerator.device, dtype=weight_dtype)
+    controlnet.to(accelerator.device, dtype=weight_dtype)
 
     # Here, we compute not just the text embeddings but also the additional embeddings
     # needed for the SD XL UNet to operate.
@@ -1390,9 +1391,7 @@ def main(args):
                 ).to(dtype=weight_dtype)
 
                 # ControlNet conditioning.
-                controlnet_image = batch["conditioning_pixel_values"].to(
-                    dtype=weight_dtype
-                )
+                controlnet_image = batch["conditioning_pixel_values"].to(dtype=weight_dtype)
                 content_latents = vae.encode(controlnet_image).latent_dist.sample()
                 content_latents = content_latents * vae.config.scaling_factor
                 down_block_res_samples, mid_block_res_sample = controlnet(
