@@ -1424,9 +1424,6 @@ def main(args):
                 loss = F.mse_loss(model_pred.float(), target.float(), reduction="mean")
 
                 accelerator.backward(loss)
-                if accelerator.sync_gradients:
-                    params_to_clip = controlnet.parameters()
-                    accelerator.clip_grad_norm_(params_to_clip, args.max_grad_norm)
                 optimizer.step()
                 lr_scheduler.step()
                 optimizer.zero_grad(set_to_none=args.set_grads_to_none)
