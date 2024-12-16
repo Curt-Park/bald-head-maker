@@ -2,6 +2,10 @@ from diffusers import StableDiffusionXLControlNetPipeline
 
 
 class StableHairSDXLControlNetPipeline(StableDiffusionXLControlNetPipeline):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.vae_scale_factor = 1
+
     def prepare_image(self, image, **kwargs):
         image = super().prepare_image(image, **kwargs)
         # norm
