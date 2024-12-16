@@ -43,7 +43,7 @@ from transformers import AutoTokenizer, PretrainedConfig
 
 import diffusers
 from .controlnet import StableHairControlNetModel
-from diffusers import StableHairSDXLControlNetPipeline
+from .pipeline_controlnet import StableHairSDXLControlNetPipeline
 from diffusers import (
     AutoencoderKL,
     DDPMScheduler,
