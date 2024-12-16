@@ -1,4 +1,15 @@
 
+## Training
+Download [non-hair-FFHQ](https://github.com/oneThousand1000/non-hair-FFHQ),
+and store `hair` and `non-hair` images in `dataset`.
+
+Example:
+```bash
+export MODEL_DIR="stabilityai/stable-diffusion-xl-base-1.0" 
+export OUTPUT_DIR="/home/jovyan/train/no-hair-sdxl"
+export DATASET_PATH="/app/dataset/images/non_hair_ffhq"
+make train-bald-converter
+```
 
 ## Powered By
 ```
@@ -10,6 +21,15 @@
       archivePrefix={arXiv},
       primaryClass={cs.CV},
       url={https://arxiv.org/abs/2407.14078}, 
+}
+
+@InProceedings{Wu_2022_CVPR,
+    author    = {Wu, Yiqian and Yang, Yong-Liang and Jin, Xiaogang},
+    title     = {HairMapper: Removing Hair From Portraits Using GANs},
+    booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+    month     = {June},
+    year      = {2022},
+    pages     = {4227-4236}
 }
 ```
 `+` [mav-rik/facerestore_cf](https://github.com/mav-rik/facerestore_cf)
