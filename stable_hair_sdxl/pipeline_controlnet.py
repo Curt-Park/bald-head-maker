@@ -8,4 +8,5 @@ class StableHairSDXLControlNetPipeline(StableDiffusionControlNetPipeline):
         image = 2.0 * image - 1.0
         image = self.vae.encode(image).latent_dist.sample()
         image = image * self.vae.config.scaling_factor
+        print("SHAPE!!!!", image.shape)
         return image
