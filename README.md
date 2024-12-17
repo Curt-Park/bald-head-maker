@@ -38,4 +38,3 @@ python test_controlnet_sdxl.py \
     pages     = {4227-4236}
 }
 ```
-`+` [mav-rik/facerestore_cf](https://github.com/mav-rik/facerestore_cf)
