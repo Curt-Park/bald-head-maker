@@ -50,6 +50,6 @@ control_image = load_image(args.input_image).resize((1024, 1024))
 # generate image
 generator = torch.manual_seed(0)
 image = remove_hair_pipeline(
-    "", num_inference_steps=20, generator=generator, image=control_image
+    "", num_inference_steps=30, generator=generator, image=control_image
 ).images[0]
 image.save("./output.png")
