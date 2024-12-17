@@ -3,6 +3,7 @@ import torch
 
 from diffusers import UNet2DConditionModel, UniPCMultistepScheduler
 from diffusers.utils import load_image
+from safetensors.torch import load_file
 
 from stable_hair_sdxl.controlnet import StableHairControlNetModel
 from stable_hair_sdxl.pipeline_controlnet import StableHairSDXLControlNetPipeline
@@ -32,7 +33,7 @@ unet = UNet2DConditionModel.from_pretrained(
     args.pretrained_model_path, subfolder="unet"
 )
 bald_converter = StableHairControlNetModel.from_unet(unet)
-bald_converter.load_state_dict(torch.load(args.controlnet_model_path))
+bald_converter.load_state_dict(load_file(args.controlnet_model_path))
 bald_converter.to(device)
 remove_hair_pipeline = StableHairSDXLControlNetPipeline.from_pretrained(
     args.pretrained_model_path,
