@@ -39,7 +39,6 @@ remove_hair_pipeline = StableHairSDXLControlNetPipeline.from_pretrained(
     args.pretrained_model_path,
     controlnet=bald_converter,
     safety_checker=None,
-    torch_dtype=torch.float16,
 ).to(device)
 
 remove_hair_pipeline.scheduler = UniPCMultistepScheduler.from_config(
