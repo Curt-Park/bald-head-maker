@@ -5,10 +5,16 @@ and store `hair` and `non-hair` images in `dataset`.
 
 Example:
 ```bash
+# Training
 export MODEL_DIR="stabilityai/stable-diffusion-xl-base-1.0" 
 export OUTPUT_DIR="/home/jovyan/train/no-hair-sdxl"
 export DATASET_PATH="/app/dataset/images/non_hair_ffhq"
 make train-bald-converter
+
+# Test
+python test_controlnet_sdxl.py \
+    --controlnet-model-path $OUTPUT_DIR/checkpoint-1000/controlnet/diffusion_pytorch_model.safetensors \
+    --input-image imgs/00003.png
 ```
 
 ## Powered By
