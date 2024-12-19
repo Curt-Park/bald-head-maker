@@ -12,7 +12,7 @@ train-bald-converter:
 		--pretrained_vae_model_name_or_path=madebyollin/sdxl-vae-fp16-fix \
 		--output_dir=$(OUTPUT_DIR) \
 		--dataset_name=$(DATASET_PATH) \
-		--mixed_precision="fp16" \
+		--mixed_precision="no" \
 		--resolution=1024 \
 		--learning_rate=5e-5 \
 		--validation_image="$(DATASET_PATH)/hair/00003.png" \
