@@ -20,5 +20,4 @@ train-bald-converter:
 		--max_train_steps=15000 \
 		--train_batch_size=4 \
 		--gradient_accumulation_steps=4 \
-		--gradient_checkpointing \
-        --enable_xformers_memory_efficient_attention
+		--gradient_checkpointing
