@@ -14,9 +14,8 @@ train-bald-converter:
 		--dataset_name=$(DATASET_PATH) \
 		--mixed_precision="no" \
 		--resolution=1024 \
-		--learning_rate=5e-5 \
 		--validation_image="$(DATASET_PATH)/hair/00003.png" \
 		--validation_prompt="" \
 		--max_train_steps=15000 \
-		--train_batch_size=2 \
-		--gradient_accumulation_steps=8
+		--train_batch_size=1 \
+		--gradient_accumulation_steps=16
