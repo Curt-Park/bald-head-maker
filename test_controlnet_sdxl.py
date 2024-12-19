@@ -1,15 +1,11 @@
 import argparse
 import torch
 
-from diffusers import UNet2DConditionModel, UniPCMultistepScheduler
+from diffusers import StableDiffusionXLControlNetPipeline, ControlNetModel, UniPCMultistepScheduler
 from diffusers.utils import load_image
-from safetensors.torch import load_file
-
-from stable_hair_sdxl.controlnet import StableHairControlNetModel
-from stable_hair_sdxl.pipeline_controlnet import StableHairSDXLControlNetPipeline
 
 
-parser = argparse.ArgumentParser(description="스테이블 디퓨전 헤어 변환 파이프라인")
+parser = argparse.ArgumentParser()
 parser.add_argument(
     "--pretrained-model-path",
     type=str,
@@ -29,16 +25,16 @@ args = parser.parse_args()
 device = "cuda" if torch.cuda.is_available else "cpu"
 
 
-unet = UNet2DConditionModel.from_pretrained(
-    args.pretrained_model_path, subfolder="unet"
-)
-bald_converter = StableHairControlNetModel.from_unet(unet)
-bald_converter.load_state_dict(load_file(args.controlnet_model_path))
+bald_converter = ControlNetModel.from_pretrained(
+    args.controlnet_model_path,
+    torch_dtype=torch.float16,
+).to(device)
 bald_converter.to(device)
-remove_hair_pipeline = StableHairSDXLControlNetPipeline.from_pretrained(
+remove_hair_pipeline = StableDiffusionXLControlNetPipeline.from_pretrained(
     args.pretrained_model_path,
     controlnet=bald_converter,
     safety_checker=None,
+    torch_dtype=torch.float16,
 ).to(device)
 
 remove_hair_pipeline.scheduler = UniPCMultistepScheduler.from_config(
