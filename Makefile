@@ -9,6 +9,7 @@ check:
 train-bald-converter:
 	accelerate launch train_controlnet_sdxl.py  \
 		--pretrained_model_name_or_path=$(MODEL_DIR) \
+		--pretrained_model_name_or_path=madebyollin/sdxl-vae-fp16-fix \
 		--output_dir=$(OUTPUT_DIR) \
 		--dataset_name=$(DATASET_PATH) \
 		--mixed_precision="fp16" \
@@ -18,4 +19,6 @@ train-bald-converter:
 		--validation_prompt="" \
 		--max_train_steps=15000 \
 		--train_batch_size=4 \
-		--gradient_accumulation_steps=4
+		--gradient_accumulation_steps=4 \
+		--gradient_checkpointing \
+        --enable_xformers_memory_efficient_attention
