@@ -9,7 +9,7 @@ check:
 train-bald-converter:
 	accelerate launch train_controlnet_sdxl.py  \
 		--pretrained_model_name_or_path=$(MODEL_DIR) \
-		--pretrained_model_name_or_path=madebyollin/sdxl-vae-fp16-fix \
+		--pretrained_vae_model_name_or_path=madebyollin/sdxl-vae-fp16-fix \
 		--output_dir=$(OUTPUT_DIR) \
 		--dataset_name=$(DATASET_PATH) \
 		--mixed_precision="fp16" \
